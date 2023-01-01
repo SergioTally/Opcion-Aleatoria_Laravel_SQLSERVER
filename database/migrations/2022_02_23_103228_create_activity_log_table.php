@@ -23,6 +23,7 @@ class CreateActivityLogTable extends Migration
             $table->bigInteger('causer_id')->nullable();
             $table->text('properties')->nullable();
             $table->char('who', 200)->nullable();
+            $table->char('batch_uuid', 200)->nullable();
             $table->timestamps();
 
             $table->index(['subject_type', 'subject_id'], 'subject');
