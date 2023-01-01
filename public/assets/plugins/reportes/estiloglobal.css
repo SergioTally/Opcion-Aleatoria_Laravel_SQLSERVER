@@ -1,0 +1,32 @@
+body
+{
+    width: 6in;
+    margin: 5mm auto;
+    font-size: 12px;
+    font-family: "arial";
+    line-height: 10px;
+
+}
+
+hr
+{
+    border-bottom: 1px solid black;
+    line-height: 66px;
+}
+
+table tr { border: 1px solid black; }
+.letter2 { border: 1px solid white; }
+.letter1 { font-weight: bold; }
+.cuerpo { border: black 1px solid; }
+.centrar { text-align: left; }
+.border_bottom td { border-bottom: 1pt solid black; }
+.texto-justificado { text-align: justify; line-height: 15px;}
+.text-right { text-align: right !important; }
+.text-center { text-align: center !important; }
+.AlaIzquierda{float: left; position: relative; width: 50%;}
+.AlaDerecha {float: right; position: relative; width: 50%;}
+.AlaDerecha1 {float: right;   width: 70%;}
+
+.AlaCentro{ float: center; position: relative; width: 60%;}
+.borde {border: black 2px solid;}
+.sagria {text-indent:20%;}
