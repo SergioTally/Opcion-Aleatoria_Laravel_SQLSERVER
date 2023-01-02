@@ -20,6 +20,7 @@ class CreateActivityLogTable extends Migration
             $table->string('subject_type')->nullable();
             $table->bigInteger('subject_id')->nullable();
             $table->string('causer_type')->nullable();
+            $table->string('event')->nullable();
             $table->bigInteger('causer_id')->nullable();
             $table->text('properties')->nullable();
             $table->char('who', 200)->nullable();

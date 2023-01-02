@@ -12,3 +12,5 @@ Route::get('suerte/dado', 'Suerte\DadoController@index')->name('dado');
 Route::get('suerte/dado/crear', 'Suerte\DadoController@create')->name('dado.crear');
 Route::post('suerte/dado/cuentacontable', 'Suerte\DadoController@store')->name('dado.guardar');
 Route::get('suerte/caras/{id}', 'Suerte\DadoController@show')->name('caras');
+
+Route::get('menu/agregar', 'Suerte\DadoController@agregarmenu')->name('agregar.menu');

@@ -14,7 +14,7 @@ class Menu extends Model
 
   protected $primaryKey = 'men_id';
 
-  protected $fillable = ['men_nombre', 'men_url', 'men_icono','men_deshabilitado','men_accion', 'men_padre'];
+  protected $fillable = ['men_id','men_nombre', 'men_url', 'men_icono','men_deshabilitado','men_orden', 'men_padre'];
 
   protected $guarded = ['men_id'];
 

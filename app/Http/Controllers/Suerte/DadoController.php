@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Suerte;
 
+use App\Models\Admin\Menu;
 use Exception;
 use App\Models\Suerte\Dado;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use App\Http\Controllers\Controller;
 
 class DadoController extends Controller
 {
@@ -35,5 +36,11 @@ class DadoController extends Controller
 
             return redirect()->route($home)->withErrors(['No fue posible cargar la lista de Dados.']);
         }
+    }
+
+    public function agregarmenu()
+    {
+        //Menu::create(['men_id'=>1,'men_nombre'=>'Suerte', 'men_url'=>'suerte', 'men_icono'=>'fa fa-star','men_deshabilitado'=>0,'men_padre'=>0,'men_orden'=>1]);
+        //Menu::create(['men_id'=>2,'men_nombre'=>'Dado', 'men_url'=>'suerte/dado', 'men_icono'=>'fa fa-square-o','men_deshabilitado'=>0,'men_padre'=>1,'men_orden'=>1]);
     }
 }
