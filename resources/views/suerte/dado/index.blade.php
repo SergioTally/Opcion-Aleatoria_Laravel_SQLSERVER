@@ -27,7 +27,7 @@
                             <h3 class="card-title">Dados<small></small></h3>
                             <div class="row d-flex justify-content-lg-end justify-content-sm-center">
                                 <div class="bd-highlight p-2">
-                                    <a href="" class="btn btn-block btn-success text-white btn-sm"> Nuevo Dado<i class="fa fa-fw fa-plus-circle pl-1"></i>
+                                    <a href="{{ route('dado.crear') }}" class="btn btn-block btn-success text-white btn-sm"> Nuevo Dado<i class="fa fa-fw fa-plus-circle pl-1"></i>
                                     </a>
                                 </div>
                             </div>
@@ -46,6 +46,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($Dados as $data)
+                                        <tr>
+                                            <td>{{ $data->dd_id }}</td>
+                                            <td>{{ $data->dd_codigo }}</td>
+                                            <td>{{ $data->dd_descripcion }}</td>
+                                            <td>{{ $data->dd_fecha }}</td>
+                                            <td>{{ $data->getResultado($data->dd_id) }}</td>
+                                            <td>
+                                                <div class="bd-highlight p-2">
+                                                <a href="{{ route('caras', ['id' => $data->dd_id]) }}"
+                                                    class="btn btn-outline-danger btn-sm">
+                                                    <i class="text-dark far fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

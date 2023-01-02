@@ -34,4 +34,20 @@ class Dado extends Model
     protected static $logFillable = true;
 
     public function getActivitylogOptions(): LogOptions { return LogOptions::defaults(); }
+
+    public function Cara()
+    {
+        return $this->belongsTo(
+            'App\Models\Atencion\Cara',
+            'dd_id',
+            'cr_dd'
+        );
+    }
+
+    public function getResultado($id)
+    {
+        $Dado=Dado::select('cr_descripcion')->join('cara','dd_id','cr_dd')->whereRaw('cr_orden=dd_resultado and dd_fecha<=GETDATE() and dd_id='.$id)->get();
+        if(count($Dado)>0) return $Dado[0]->cr_descripcion;
+        else return 'Sin resultado';
+    }
 }
