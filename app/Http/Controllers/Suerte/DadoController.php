@@ -102,6 +102,32 @@ class DadoController extends Controller
         }
     }
 
+    public function show(Request $request,$id)
+    {
+        $Modelo = new Dado;
+        $direccion = 'suerte/dado/show';
+        $home = 'home';
+
+        try{
+            $Caras=Cara::where('cr_dd',$id)->get();
+            $Dado=Dado::selectRaw("*,DATEDIFF(SECOND,'1969-12-31 18:00:00', dd_fecha) as segundos")->find($id);
+
+            return view($direccion, compact('Caras', 'Dado'));
+        }
+        catch (QueryException $e)
+        {
+            ActivityLogNavegacion($request, $Modelo, $direccion.' Error BD '.$e->getMessage());
+
+            return redirect()->route($home)->withErrors(['No fue posible cargar las caras.']);
+        }
+        catch (Exception $e)
+        {
+            ActivityLogNavegacion($request, $Modelo, $direccion.' Error Aplicacion '.$e->getMessage());
+
+            return redirect()->route($home)->withErrors(['No fue posible cargar las caras.']);
+        }
+    }
+
     public function agregarmenu()
     {
 

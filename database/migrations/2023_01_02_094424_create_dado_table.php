@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('dd_id', true);
             $table->string('dd_codigo', 15);
             $table->string('dd_descripcion', 500);
-            $table->date('dd_fecha')->default('getdate()');
+            $table->datetime('dd_fecha')->default('getdate()');
             $table->integer('dd_resultado');
             $table->timestamps();
         });
