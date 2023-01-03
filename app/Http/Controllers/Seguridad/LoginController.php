@@ -43,6 +43,27 @@ class LoginController extends Controller
         }
     }
 
+    public function registrarse(Request $request)
+    {
+        $Modelo = new Usuario;
+        $direccion = 'seguridad.registrarse';
+        try{
+            return view($direccion);
+        }
+        catch (QueryException $e)
+        {
+            ActivityLogNavegacion($request, $Modelo, $direccion.' Error BD '.$e->getMessage());
+
+            return redirect()->route($direccion)->withErrors(['No fue posible ingresar al Registro del Sistema']);
+        }
+        catch (Exception $e)
+        {
+            ActivityLogNavegacion($request, $Modelo, $direccion.' Error Aplicacion '.$e->getMessage());
+
+            return redirect()->route($direccion)->withErrors(['No fue posible ingresar al Registro del Sistema']);
+        }
+    }
+
     public function username()
     {
         return 'usu_nombre';
@@ -74,7 +95,63 @@ class LoginController extends Controller
             $this->guard()->logout();
             $request->session()->invalidate();
 
-            return redirect('seguridad/login')->withErrors(['error' => 'El usuario no está activo.']);
+            return redirect('seguridad/validar/'.$user->id)->withErrors(['error' => 'El usuario no está activo.']);
+        }
+    }
+
+    protected function validar(Request $request)
+    {
+        $Comparativa=hash('crc32', $request->usu_id);
+        if($Comparativa==$request->Codigo)
+        {
+            Usuario::find($request->usu_id)->update(['usu_activo'=>1]);
+            $user=Usuario::find($request->usu_id);
+            if (Browser::isDesktop()) {
+                $dispositivo = 'Laptop';
+            }
+            if (Browser::isTablet()) {
+                $dispositivo = 'Tablet';
+            }
+            if (Browser::isMobile()) {
+                $dispositivo = 'Celular';
+            }
+            activity('sesion')
+                ->withProperties([
+                    'explorador' => Browser::browserName(),
+                    'ip' => $request->ip(),
+                    'so' => Browser::platformName(),
+                    'dispositivo' => $dispositivo,
+                ])
+                ->log('login');
+            $user->setSession();
+            return redirect('seguridad/login')->with('mensaje', 'Usuario activado exitosamente.');;
+
+        } else {
+            $this->guard()->logout();
+            $request->session()->invalidate();
+
+            return redirect('seguridad/login')->withErrors(['error' => 'Codigo invalido.']);
+        }
+    }
+
+    protected function validated(Request $request, $usu_id)
+    {
+        $Modelo = new Usuario;
+        $direccion = 'seguridad.validar';
+        try{
+            return view($direccion, compact('usu_id'));
+        }
+        catch (QueryException $e)
+        {
+            ActivityLogNavegacion($request, $Modelo, $direccion.' Error BD '.$e->getMessage());
+
+            return redirect()->route($direccion)->withErrors(['No fue posible ingresar al Login del Sistema']);
+        }
+        catch (Exception $e)
+        {
+            ActivityLogNavegacion($request, $Modelo, $direccion.' Error Aplicacion '.$e->getMessage());
+
+            return redirect()->route($direccion)->withErrors(['No fue posible ingresar al Login del Sistema']);
         }
     }
 

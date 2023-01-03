@@ -117,6 +117,34 @@ class UsuarioController extends Controller
             return redirect()->route($direccion)->withErrors(['No fue posible guardar los datos del Usuario.']);
         }
     }
+
+    public function registrar(Request $request)
+    {
+        $Modelo = new Usuario;
+        $direccion = 'parametros/usuario';
+        try{
+            $request->merge(['usu_pwd'=>bcrypt($request->usu_pwd)]);
+            $Usuario=Usuario::create($request->all());
+            $Codigo=hash('crc32', $Usuario->id);
+            $this->NuevaTicket($request, $Codigo, $request->usu_correo);
+
+            ActivityLogNavegacion($request, $Modelo, $direccion.' success');
+
+            return redirect($direccion)->with('mensaje', 'Usuario creado exitosamente.');
+        }
+        catch (QueryException $e)
+        {
+            ActivityLogNavegacion($request, $Modelo, $direccion.' Error BD '.$e->getMessage());
+
+            return redirect()->route($direccion)->withErrors(['No fue posible guardar los datos del Usuario.']);
+        }
+        catch (Exception $e)
+        {
+            ActivityLogNavegacion($request, $Modelo, $direccion.' Error Aplicacion '.$e->getMessage());
+
+            return redirect()->route($direccion)->withErrors(['No fue posible guardar los datos del Usuario.']);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *

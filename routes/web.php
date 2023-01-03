@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('seguridad/login', 'Seguridad\LoginController@index')->name('login');
 Route::post('seguridad/login', 'Seguridad\LoginController@login')->name('login_post');
+Route::get('seguridad/validar/{id}', 'Seguridad\LoginController@validated')->name('login_validate');
+Route::post('seguridad/validar', 'Seguridad\LoginController@validar')->name('login_validar');
+Route::get('seguridad/registrarse', 'Seguridad\LoginController@registrarse')->name('login_registrarse');
 Route::get('seguridad/logout', 'Seguridad\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('home')->middleware(['auth']);

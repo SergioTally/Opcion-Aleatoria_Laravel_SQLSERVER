@@ -27,7 +27,7 @@
                 <div class="card-header text-center">
                 </div>
                 <div class="card-body">
-                <p class="login-box-msg">Ingrese sus Credenciales</p>
+                <p class="login-box-msg">Ingrese el Codigo</p>
                 @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -38,18 +38,11 @@
                         </div>
                     </div>
                     @endif
-                    <form action="{{route('login_post')}}" method="POST" autocomplete="off">
+                    <form action="{{route('login_validar')}}" method="POST" autocomplete="off">
                         @csrf
                         <div class="input-group mb-3">
-                        <input type="text" name="usu_nombre" id="usu_nombre" class="form-control" placeholder="Usuario" value="{{old('usu_nombre')}}">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-user"></span>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="input-group mb-3">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña">
+                        <input type="text" name="Codigo" id="Codigo" class="form-control" placeholder="Codigo">
+                        <input type="hidden" name="usu_id" id="usu_id" value="{{$usu_id}}">
                         <div class="input-group-append">
                             <div class="input-group-text">
                             <span class="fas fa-lock"></span>
